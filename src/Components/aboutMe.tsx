@@ -20,37 +20,32 @@ export default function About() {
           {/* Description */}
           <div className="flex-1 text-lg">
             <p className="mb-4">
-              I'm a passionate frontend developer.After graduating in 2023, I've
-              been dedicated to creating exceptional digital experiences through
-              clean, efficient code and modern development practices.
-            </p>
-            <p>
-              Currently working at NearLaw, I specialize in building responsive
-              web applications and mobile solutions using cutting-edge
-              technologies like React, Flutter, and React Native + Expo. I
-              believe in writing code that not only works but is maintainable
-              and scalable.
+              Frontend Engineer with 1+ of experience developing cross-platform
+              mobile applications using Flutter, React Native, and React.js.
+              Built production-level applications serving 1000+ users with
+              expertise in API integration, search optimization, and responsive
+              UI development .
             </p>
           </div>
 
           {/* Quick Facts Box */}
           <div className="flex-1 bg-gradient-to-br from-blue-500 to-purple-500 text-white p-6 rounded-2xl shadow-lg">
             <h3 className="text-2xl font-semibold mb-4">Quick Facts</h3>
-            <ul className="space-y-3 text-white text-md">
+            <ul className="space-y-3  text-md">
               <li className="flex items-start gap-2">
-                <span className="text-yellow-300 text-xl mt-1">•</span>
+                <p className="text-yellow-300 text-xl">•</p>
                 Electronics & Telecommunication Engineering Graduate
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-yellow-300 text-xl mt-1">•</span>
+                <span className="text-yellow-300 text-xl">•</span>
                 Frontend Developer at NearLaw
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-yellow-300 text-xl mt-1">•</span>
+                <span className="text-yellow-300 text-xl ">•</span>
                 Experience in React, React Native + Expo & Flutter Development
               </li>
               <li className="flex items-start gap-2">
-                <span className="text-yellow-300 text-xl mt-1">•</span>
+                <span className="text-yellow-300 text-xl ">•</span>
                 Based in Mumbai, India
               </li>
             </ul>

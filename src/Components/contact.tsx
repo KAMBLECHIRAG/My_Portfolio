@@ -1,13 +1,56 @@
+import { useRef, useState, useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
   faMapMarkerAlt,
-  faPhoneAlt,
   faPaperPlane,
+  faPhone,
 } from "@fortawesome/free-solid-svg-icons";
-import { faGithub, faLinkedin } from "@fortawesome/free-brands-svg-icons";
+import {
+  faWhatsapp,
+  faGithub,
+  faLinkedin,
+} from "@fortawesome/free-brands-svg-icons";
+import emailjs from "@emailjs/browser";
 
 export default function Contact() {
+  const form = useRef<HTMLFormElement>(null);
+  const [status, setStatus] = useState<string | null>(null);
+
+  useEffect(() => {
+    if (status) {
+      const timer = setTimeout(() => {
+        setStatus(null);
+      }, 5000);
+
+      return () => clearTimeout(timer); // cleanup
+    }
+  }, [status]);
+
+  const sendEmail = (e: React.FormEvent) => {
+    e.preventDefault();
+
+    if (!form.current) return;
+
+    emailjs
+      .sendForm(
+        "service_hkpni16", // replace with your EmailJS service ID
+        "template_k051eo5", // replace with your EmailJS template ID
+        form.current,
+        "VMrIAtRUaAnoZQGFl" // replace with your EmailJS public key
+      )
+      .then(
+        () => {
+          setStatus("✅ Message sent successfully!");
+          form.current?.reset();
+        },
+        (error) => {
+          console.error(error.text);
+          setStatus("❌ Failed to send message. Please try again.");
+        }
+      );
+  };
+
   return (
     <div
       className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 p-10 text-white font-sans"
@@ -65,7 +108,7 @@ export default function Contact() {
             <div className="flex items-center bg-white bg-opacity-10 p-4 rounded-xl">
               <div className="bg-white bg-opacity-20 p-3 rounded-full">
                 <FontAwesomeIcon
-                  icon={faPhoneAlt}
+                  icon={faPhone}
                   className="text-white text-xl"
                 />
               </div>
@@ -99,29 +142,40 @@ export default function Contact() {
             >
               <FontAwesomeIcon icon={faEnvelope} />
             </a>
+            <a
+              href="https://wa.me/9167973889"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-green-500 text-3xl hover:text-green-600"
+            >
+              <FontAwesomeIcon icon={faWhatsapp} color="white" />
+            </a>
           </div>
         </div>
 
-        {/* Right Side */}
+        {/* Right Side - EmailJS Form */}
         <div className="bg-white bg-opacity-10 p-8 rounded-xl">
           <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
-          <form className="space-y-4">
+          <form ref={form} onSubmit={sendEmail} className="space-y-4">
             <input
               type="text"
-              id="name"
+              name="user_name"
               placeholder="Your Name"
+              required
               className="w-full p-3 rounded bg-white bg-opacity-20 text-white placeholder-white focus:outline-none"
             />
             <input
               type="email"
-              id="email"
+              name="user_email"
               placeholder="Your Email"
+              required
               className="w-full p-3 rounded bg-white bg-opacity-20 text-white placeholder-white focus:outline-none"
             />
             <textarea
+              name="message"
               rows={4}
-              id="message"
               placeholder="Your Message"
+              required
               className="w-full p-3 rounded bg-white bg-opacity-20 text-white placeholder-white focus:outline-none"
             ></textarea>
             <button
@@ -132,6 +186,10 @@ export default function Contact() {
               Send Message
             </button>
           </form>
+
+          {status && (
+            <p className="mt-4 text-center text-sm font-medium">{status}</p>
+          )}
         </div>
       </div>
 

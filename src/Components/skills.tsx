@@ -41,7 +41,7 @@ const skills = [
     title: "Programming",
     icon: faDatabase,
     color: "bg-orange-100 text-orange-600",
-    tags: ["Java", "JavaScript", "TypeScript", "Dart"],
+    tags: ["JavaScript", "TypeScript", "Dart"],
   },
 ];
 

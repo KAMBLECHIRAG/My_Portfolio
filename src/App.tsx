@@ -6,6 +6,7 @@ import Skills from "./Components/skills";
 import WorkExperience from "./Components/workExperience";
 import Education from "./Components/education";
 import Contact from "./Components/contact";
+import Projects from "./Components/project";
 
 const App: React.FC = () => {
   return (
@@ -14,6 +15,7 @@ const App: React.FC = () => {
       <About />
       <Skills />
       <WorkExperience />
+      <Projects />
       <Education />
       <Contact />
     </div>

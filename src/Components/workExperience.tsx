@@ -50,16 +50,16 @@ export default function WorkExperience() {
           <h4 className="text-lg font-semibold mb-2">Key Responsibilities:</h4>
           <ul className="list-disc pl-6 mb-4">
             <li>
-              Develop and maintain responsive mobile applications using React
-              Native + Expo and Typescript
+              Developed 3 cross-platform mobile applications serving 1000+
+              active users using Flutter, React Native, and React.js.
             </li>
             <li>
-              Build cross-platform mobile applications using Flutter and React
-              Native
+              Implemented Elasticsearch integration handling 100K document
+              searches with optimized query performance.
             </li>
             <li>
-              Collaborate with design teams to implement pixel-perfect UI
-              components
+              Engineered complex JSON data parsing systems processing data
+              fields for dynamic content rendering.
             </li>
           </ul>
           <h4 className="text-lg font-semibold mb-2">Technologies Used:</h4>

@@ -46,22 +46,6 @@ export default function Education() {
             strong foundation in engineering principles, problem-solving, and
             analytical thinking.
           </p>
-
-          <h4 className="text-lg font-semibold mb-2">Skills Developed:</h4>
-          <div className="flex flex-wrap gap-2">
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-lg text-sm">
-              Problem Solving
-            </span>
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-lg text-sm">
-              Analytical Thinking
-            </span>
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-lg text-sm">
-              Technical Documentation
-            </span>
-            <span className="bg-gray-200 text-gray-600 px-2 py-1 rounded-lg text-sm">
-              Team Collaboration
-            </span>
-          </div>
         </div>
       </div>
     </section>
