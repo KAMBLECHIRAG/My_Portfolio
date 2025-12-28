@@ -1,18 +1,68 @@
+import  { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGraduationCap } from "@fortawesome/free-solid-svg-icons";
 
 export default function Education() {
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
+
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
   return (
-    <section className="py-16 px-6 md:px-16 bg-white text-gray-800">
+    <section ref={ref} className="py-16 px-6 md:px-16 bg-white text-gray-800">
       <div className="max-w-6xl mx-auto">
         {/* Header */}
-        <h2 className="text-4xl font-bold mb-2 text-center md:text-left">
+        <motion.h2
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          className="text-4xl font-bold mb-2 text-center md:text-left"
+        >
           Education
-        </h2>
-        <div className="w-24 h-1 bg-blue-500 mb-10 mx-auto md:mx-0"></div>
+        </motion.h2>
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.2 }}
+          className="w-24 h-1 bg-blue-500 mb-10 mx-auto md:mx-0"
+        ></motion.div>
 
         {/* Education Card */}
-        <div className="bg-white p-6 border rounded-xl shadow hover:shadow-md transition">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.4 }}
+          className="bg-white p-6 border rounded-xl shadow hover:shadow-md transition"
+        >
           <div className="flex items-center mb-4">
             <div className="w-10 h-10 bg-purple-500 rounded-full flex justify-center items-center mr-4">
               <FontAwesomeIcon
@@ -46,7 +96,7 @@ export default function Education() {
             strong foundation in engineering principles, problem-solving, and
             analytical thinking.
           </p>
-        </div>
+        </motion.div>
       </div>
     </section>
   );

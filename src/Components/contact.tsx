@@ -1,4 +1,5 @@
-import { useRef, useState, useEffect } from "react";
+import  { useRef, useState, useEffect } from "react";
+import { motion } from "framer-motion";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faEnvelope,
@@ -16,22 +17,44 @@ import emailjs from "@emailjs/browser";
 export default function Contact() {
   const form = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<string | null>(null);
+  const [isVisible, setIsVisible] = useState(false);
+  const ref = useRef(null);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting) {
+          setIsVisible(true);
+        }
+      },
+      {
+        threshold: 0.1,
+      }
+    );
+
+    if (ref.current) {
+      observer.observe(ref.current);
+    }
+
+    return () => {
+      if (ref.current) {
+        observer.unobserve(ref.current);
+      }
+    };
+  }, []);
 
   useEffect(() => {
     if (status) {
       const timer = setTimeout(() => {
         setStatus(null);
       }, 5000);
-
       return () => clearTimeout(timer); // cleanup
     }
   }, [status]);
 
   const sendEmail = (e: React.FormEvent) => {
     e.preventDefault();
-
     if (!form.current) return;
-
     emailjs
       .sendForm(
         "service_hkpni16", // replace with your EmailJS service ID
@@ -51,30 +74,44 @@ export default function Contact() {
       );
   };
 
+  const fadeInUp = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.8 } },
+  };
+
   return (
     <div
+      ref={ref}
       className="min-h-screen bg-gradient-to-br from-blue-500 via-purple-600 to-pink-500 p-10 text-white font-sans"
       id="contact"
     >
-      <div className="text-center mb-12">
+      <motion.div
+        variants={fadeInUp}
+        initial="hidden"
+        animate={isVisible ? "visible" : "hidden"}
+        className="text-center mb-12"
+      >
         <h2 className="text-4xl font-bold">Get In Touch</h2>
         <div className="w-16 h-1 bg-yellow-400 mx-auto my-3 rounded-full"></div>
         <p className="text-lg max-w-2xl mx-auto">
           I'm always open to discussing new opportunities, projects, or just
           having a friendly chat about technology.
         </p>
-      </div>
-
+      </motion.div>
       <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
         {/* Left Side */}
-        <div>
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.2 }}
+        >
           <h3 className="text-2xl font-semibold mb-4">Let's Connect</h3>
           <p className="mb-8 text-sm text-gray-200">
             Whether you have a project in mind, want to collaborate, or just
             want to say hello, I'd love to hear from you. Let's create something
             amazing together!
           </p>
-
           <div className="space-y-6">
             <div className="flex items-center bg-white bg-opacity-10 p-4 rounded-xl">
               <div className="bg-white bg-opacity-20 p-3 rounded-full">
@@ -88,7 +125,6 @@ export default function Contact() {
                 <p className="text-base font-medium">kamblechirag0@gmail.com</p>
               </div>
             </div>
-
             <div className="flex items-center bg-white bg-opacity-10 p-4 rounded-xl">
               <div className="bg-white bg-opacity-20 p-3 rounded-full">
                 <FontAwesomeIcon
@@ -104,7 +140,6 @@ export default function Contact() {
                 </p>
               </div>
             </div>
-
             <div className="flex items-center bg-white bg-opacity-10 p-4 rounded-xl">
               <div className="bg-white bg-opacity-20 p-3 rounded-full">
                 <FontAwesomeIcon
@@ -118,7 +153,6 @@ export default function Contact() {
               </div>
             </div>
           </div>
-
           <div className="flex gap-6 mt-10">
             <a
               href="https://github.com/KAMBLECHIRAG"
@@ -151,10 +185,15 @@ export default function Contact() {
               <FontAwesomeIcon icon={faWhatsapp} color="white" />
             </a>
           </div>
-        </div>
-
+        </motion.div>
         {/* Right Side - EmailJS Form */}
-        <div className="bg-white bg-opacity-10 p-8 rounded-xl">
+        <motion.div
+          variants={fadeInUp}
+          initial="hidden"
+          animate={isVisible ? "visible" : "hidden"}
+          transition={{ delay: 0.4 }}
+          className="bg-white bg-opacity-10 p-8 rounded-xl"
+        >
           <h3 className="text-2xl font-semibold mb-6">Send a Message</h3>
           <form ref={form} onSubmit={sendEmail} className="space-y-4">
             <input
@@ -182,17 +221,15 @@ export default function Contact() {
               type="submit"
               className="w-full bg-white text-blue-600 font-semibold py-3 rounded flex justify-center items-center gap-2 hover:bg-gray-100"
             >
-              <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5" />
-              Send Message
+              <FontAwesomeIcon icon={faPaperPlane} className="w-5 h-5" /> Send
+              Message
             </button>
           </form>
-
           {status && (
             <p className="mt-4 text-center text-sm font-medium">{status}</p>
           )}
-        </div>
+        </motion.div>
       </div>
-
       <footer className="mt-16 text-center text-sm text-gray-300">
         © {new Date().getFullYear()} Chirag Kamble.
       </footer>
